@@ -1,12 +1,14 @@
 import { useLayoutEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { Text, View, StyleSheet } from "react-native";
 
-const Statistics = ({ navigation }) => {
+import Button from "../../components/Button";
+
+const HomeScreen = ({ navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerStyle: {
                 backgroundColor: "#072AC8",
-
+                height: 50
             },
             headerTintColor: '#fff',
             headerTitleAlign: 'center'
@@ -14,8 +16,8 @@ const Statistics = ({ navigation }) => {
     }, [])
 
     return (
-        <View>
-            <Text>Plan trenignowy</Text>
+        <View style={styles.container}>
+            <Button text="Add trening day" />
         </View>
     )
 }
@@ -23,8 +25,9 @@ const Statistics = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: '#fff'
     }
 })
 
-export default Statistics;
+export default HomeScreen

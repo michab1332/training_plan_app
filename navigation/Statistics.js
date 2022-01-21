@@ -1,12 +1,12 @@
 import { useLayoutEffect } from "react";
-import { Text, View, StyleSheet } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
-const HomeScreen = ({ navigation }) => {
+const Statistics = ({ navigation }) => {
     useLayoutEffect(() => {
         navigation.setOptions({
             headerStyle: {
                 backgroundColor: "#072AC8",
-
+                height: 50
             },
             headerTintColor: '#fff',
             headerTitleAlign: 'center'
@@ -15,9 +15,7 @@ const HomeScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Text>
-                Home
-            </Text>
+            <Text>Plan trenignowy</Text>
         </View>
     )
 }
@@ -25,8 +23,10 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: '#fff'
     }
 })
 
-export default HomeScreen
+export default Statistics;

@@ -3,9 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from "./screens/HomeScreen";
-import TrainingPlansScreen from "./screens/TrainingPlansScreen";
-import Statistics from "./screens/Statistics";
+import HomeScreen from "./homeScreens/HomeScreen";
+import TrainingPlansStackScreen from "./trainingPlanScreens/TrainingPlansStackScreen";
+import Statistics from "./Statistics";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,18 +19,18 @@ const MainContainer = () => {
                         tabBarIcon: ({ focused, color, size }) => {
                             let iconName;
                             if (route.name === 'Home') {
-                                iconName = 'home-outline'
+                                iconName = focused ? 'home' : 'home-outline'
                             } else if (route.name === 'Training Plans') {
-                                iconName = 'apps-outline'
+                                iconName = focused ? 'apps' : 'apps-outline'
                             } else if (route.name === 'Statistics') {
-                                iconName = 'stats-chart-outline'
+                                iconName = focused ? 'stats-chart' : 'stats-chart-outline'
                             }
-
-                            return <Ionicons name={iconName} size={size} color={color} />;
-                        },
-                    })}>
+                            return <Ionicons name={iconName} size={size * 1.2} color={color} />;
+                        }
+                    })}
+                >
                     <Tab.Screen name='Home' component={HomeScreen} />
-                    <Tab.Screen name='Training Plans' component={TrainingPlansScreen} />
+                    <Tab.Screen name='Training Plans' component={TrainingPlansStackScreen} />
                     <Tab.Screen name='Statistics' component={Statistics} />
                 </Tab.Navigator>
             </NavigationContainer>
@@ -41,7 +41,7 @@ const MainContainer = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center'
+        justifyContent: 'center',
     }
 })
 

@@ -1,4 +1,4 @@
-import { StatusBar, View } from "react-native";
+import 'react-native-gesture-handler';
 
 import MainContainer from "./navigation/MainContainer";
 
