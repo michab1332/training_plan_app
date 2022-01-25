@@ -6,35 +6,38 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import HomeScreen from "./homeScreens/HomeScreen";
 import TrainingPlansStackScreen from "./trainingPlanScreens/TrainingPlansStackScreen";
 import Statistics from "./Statistics";
+import AppProvider from "../context/AppContext";
 
 const Tab = createBottomTabNavigator();
 
 const MainContainer = () => {
     return (
-        <SafeAreaView style={styles.container}>
-            <StatusBar backgroundColor='#072AC8' />
-            <NavigationContainer>
-                <Tab.Navigator
-                    screenOptions={({ route }) => ({
-                        tabBarIcon: ({ focused, color, size }) => {
-                            let iconName;
-                            if (route.name === 'Home') {
-                                iconName = focused ? 'home' : 'home-outline'
-                            } else if (route.name === 'Training Plans') {
-                                iconName = focused ? 'apps' : 'apps-outline'
-                            } else if (route.name === 'Statistics') {
-                                iconName = focused ? 'stats-chart' : 'stats-chart-outline'
+        <AppProvider>
+            <SafeAreaView style={styles.container}>
+                <StatusBar backgroundColor='#072AC8' />
+                <NavigationContainer>
+                    <Tab.Navigator
+                        screenOptions={({ route }) => ({
+                            tabBarIcon: ({ focused, color, size }) => {
+                                let iconName;
+                                if (route.name === 'Home') {
+                                    iconName = focused ? 'home' : 'home-outline'
+                                } else if (route.name === 'Training Plans') {
+                                    iconName = focused ? 'apps' : 'apps-outline'
+                                } else if (route.name === 'Statistics') {
+                                    iconName = focused ? 'stats-chart' : 'stats-chart-outline'
+                                }
+                                return <Ionicons name={iconName} size={size * 1.2} color={color} />;
                             }
-                            return <Ionicons name={iconName} size={size * 1.2} color={color} />;
-                        }
-                    })}
-                >
-                    <Tab.Screen name='Home' component={HomeScreen} />
-                    <Tab.Screen name='Training Plans' component={TrainingPlansStackScreen} />
-                    <Tab.Screen name='Statistics' component={Statistics} />
-                </Tab.Navigator>
-            </NavigationContainer>
-        </SafeAreaView>
+                        })}
+                    >
+                        <Tab.Screen name='Home' component={HomeScreen} />
+                        <Tab.Screen name='Training Plans' component={TrainingPlansStackScreen} />
+                        <Tab.Screen name='Statistics' component={Statistics} />
+                    </Tab.Navigator>
+                </NavigationContainer>
+            </SafeAreaView>
+        </AppProvider>
     )
 }
 

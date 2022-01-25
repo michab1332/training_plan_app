@@ -2,12 +2,16 @@ import { View, StyleSheet, TextInput } from "react-native";
 
 import Button from "../../components/Button";
 
-const AddExercise = ({ numberOfSeries, setNumberOfSeries, exerciseName, setExerciseName, handleChangeIsVisible }) => {
+const AddExercise = ({ numberOfSeries, setNumberOfSeries, exerciseName, setExerciseName, handleChangeIsVisible, handleAddExercise }) => {
+    const handleAddExerciseAndChangeVisible = () => {
+        handleAddExercise()
+        handleChangeIsVisible()
+    }
     return (
         <View style={styles.container}>
             <TextInput placeholder='Exercise name...' style={styles.input} value={exerciseName} onChangeText={setExerciseName} />
             <TextInput keyboardType="numeric" placeholder='Number of series' style={styles.input} value={numberOfSeries} onChangeText={setNumberOfSeries} />
-            <Button onPress={handleChangeIsVisible} text="Add exercise" outline />
+            <Button onPress={handleAddExerciseAndChangeVisible} text="Add exercise" outline />
         </View>
     )
 }
