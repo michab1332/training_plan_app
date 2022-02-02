@@ -1,11 +1,15 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { View, StyleSheet, TextInput, FlatList } from "react-native";
 
 import AddExercise from './AddExercise';
 import Button from "../../components/Button";
 import ExerciseItem from './ExerciseItem';
 
-const TrainingPlansScreen = () => {
+import { AppContext } from '../../context/AppContext';
+
+const TrainingPlansScreen = ({ navigation }) => {
+    const { handleAddTrainingPlan } = useContext(AppContext);
+
     const [trainingName, setTrainingName] = useState('');
     const [trainingTime, setTrainingTime] = useState('');
     const [exerciseName, setExerciseName] = useState('');
@@ -19,9 +23,25 @@ const TrainingPlansScreen = () => {
         setNumberOfSeries('')
     }
 
+    const makeTabWithValues = (number) => {
+        let tab = []
+        for (let i = 0; i < number; i++) {
+            tab.push(0)
+        }
+        return tab;
+    }
+
     const handleAddExercise = () => {
         if (exerciseName !== '' && numberOfSeries !== '') {
-            setExerciseTab(prevState => [...prevState, { id: prevState.length + 1, exerciseName: exerciseName, numberOfSeries: numberOfSeries }])
+            const tab = makeTabWithValues(numberOfSeries)
+            setExerciseTab(prevState => [...prevState, { id: prevState.length + 1, exerciseName: exerciseName, numberOfSeries: numberOfSeries, repetitionsInSerie: tab }])
+        }
+    }
+
+    const handleAddTraining = () => {
+        if (trainingName !== '' && trainingTime !== '') {
+            handleAddTrainingPlan(trainingName, trainingTime, exerciseTab)
+            navigation.goBack()
         }
     }
 
@@ -46,7 +66,7 @@ const TrainingPlansScreen = () => {
                     setExerciseName={setExerciseName}
                     handleChangeIsVisible={handleChangeIsVisible}
                     handleAddExercise={handleAddExercise} /> : null}
-                <Button text='Create training plan' />
+                <Button onPress={handleAddTraining} text='Create training plan' />
             </View>
         </View>
     )
@@ -72,9 +92,9 @@ const styles = StyleSheet.create({
         width: 220,
         height: 40,
         backgroundColor: '#FFFBFC',
-        borderRadius: 5,
+        borderRadius: 50,
         marginTop: 15,
-        paddingHorizontal: 5
+        paddingHorizontal: 20
     },
     line: {
         width: '90%',

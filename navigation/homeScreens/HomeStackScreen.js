@@ -1,8 +1,9 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { useLayoutEffect } from 'react';
 
-import TrainingPlansHomeScreen from './TrainingPlansHomeScreen';
-import TrainingPlansCreateScreen from './TrainingPlansCreateScreen';
+import HomeScreen from './HomeScreen';
+import TrainingDayCreate from './TrainingDayCreateScreen';
+import TrainingScreen from './TrainingScreen';
 
 const Stack = createStackNavigator();
 
@@ -20,8 +21,9 @@ const TrainingPlansStackScreen = ({ navigation }) => {
 
     return (
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="TrainingPlansHome" component={TrainingPlansHomeScreen} />
-            <Stack.Screen name="TrainingPlansCreate" component={TrainingPlansCreateScreen} />
+            <Stack.Screen name="HomeScreen" component={HomeScreen} />
+            <Stack.Screen name="TrainingDayCreate" component={TrainingDayCreate} />
+            <Stack.Screen name="Training" component={TrainingScreen} />
         </Stack.Navigator>
     )
 }

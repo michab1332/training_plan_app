@@ -1,54 +1,84 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
-const ListItem = ({ trainingName, trainingTime, buttonText }) => {
+const ListItem = ({ trainingName, trainingText, buttonText, onPress }) => {
     return (
         <View style={styles.container}>
-            <View style={styles.text}>
-                <Text style={styles.name}>{trainingName}</Text>
-                <Text style={styles.time}>Czas trwania: {trainingTime}</Text>
+            <View style={styles.top}>
+                <View style={[styles.text, styles.shadow]}>
+                    <Text style={styles.name}>{trainingName}</Text>
+                </View>
+                <View style={[styles.text, styles.shadow]}>
+                    <Text style={styles.time}>{trainingText}</Text>
+                </View>
             </View>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}>{buttonText}</Text>
-            </TouchableOpacity>
-        </View>
+            <View style={styles.bottom}>
+                <TouchableOpacity onPress={() => onPress()} style={[styles.button, styles.shadow]}>
+                    <Text style={styles.buttonText}>{buttonText}</Text>
+                </TouchableOpacity>
+            </View>
+        </View >
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         width: '90%',
-        height: 80,
-        backgroundColor: '#EEF0F2',
-        borderRadius: 10,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center'
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        height: 150,
+        borderRadius: 30,
+        alignItems: 'center',
+        marginVertical: 15,
+        //backgroundColor: "#EEF0F2",
+    },
+    top: {
+        width: '100%',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
+        flexDirection: 'row'
     },
     text: {
-        height: '100%',
-        justifyContent: 'space-evenly'
-    },
-    name: {
-        fontSize: 19,
-        fontWeight: '700'
-    },
-    time: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: '#072AC8'
-    },
-    button: {
-        width: 130,
+        width: '40%',
         height: '70%',
         backgroundColor: '#1E96FC',
-        borderRadius: 10,
+        borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    name: {
+        color: "#fff",
+        fontWeight: 'bold'
+
+    },
+    time: {
+        color: '#fff',
+        fontWeight: 'bold'
+
+    },
+    bottom: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        width: '90%',
+        height: '70%',
+        backgroundColor: '#072AC8',
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonText: {
         fontWeight: '700',
         color: '#fff',
         fontSize: 16
+    },
+    shadow: {
+        shadowColor: '#000',
+        shadowOpacity: 1,
+        elevation: 9,
     }
 })
 

@@ -3,26 +3,22 @@ import { createContext, useState } from "react";
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-    const [trainingPlansTab, setTrainingPlansTab] = useState([
-        {
-            id: 1,
-            nameOfTraining: 'Nogi',
-            timeOfTaining: '1.5h'
-        },
-        {
-            id: 2,
-            nameOfTraining: 'Nogi',
-            timeOfTaining: '1.5h'
-        },
-        {
-            id: 3,
-            nameOfTraining: 'Nogi',
-            timeOfTaining: '1.5h'
-        }
-    ])
+    const [trainingPlansTab, setTrainingPlansTab] = useState([])
+    const [trainingDayTab, setTrainingDayTab] = useState([])
+
+    const handleAddTrainingPlan = (trainingName, trainingTime, tab) => {
+        setTrainingPlansTab(prevState => [...prevState, { id: prevState.length + 1, trainingName, trainingTime, exercises: tab }])
+    }
+
+    const handleSetTrainingDayTab = (day, trainingPlanId) => {
+        setTrainingDayTab(prevState => [...prevState, { id: prevState.length + 1, day, trainingPlanId }])
+    }
     return (
         <AppContext.Provider value={{
-            trainingPlansTab
+            trainingPlansTab,
+            handleAddTrainingPlan,
+            trainingDayTab,
+            handleSetTrainingDayTab
         }}>
             {children}
         </AppContext.Provider>

@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from "./homeScreens/HomeScreen";
+import HomeStackScreen from "./homeScreens/HomeStackScreen";
 import TrainingPlansStackScreen from "./trainingPlanScreens/TrainingPlansStackScreen";
 import Statistics from "./Statistics";
 import AppProvider from "../context/AppContext";
@@ -31,7 +31,7 @@ const MainContainer = () => {
                             }
                         })}
                     >
-                        <Tab.Screen name='Home' component={HomeScreen} />
+                        <Tab.Screen name='Home' component={HomeStackScreen} />
                         <Tab.Screen name='Training Plans' component={TrainingPlansStackScreen} />
                         <Tab.Screen name='Statistics' component={Statistics} />
                     </Tab.Navigator>

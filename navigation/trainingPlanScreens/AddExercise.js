@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
         width: 220,
         height: 40,
         backgroundColor: '#EEF0F2',
-        borderRadius: 5,
+        borderRadius: 50,
         marginTop: 15,
-        paddingHorizontal: 5
+        paddingHorizontal: 5,
+        paddingHorizontal: 20
     }
 })
 

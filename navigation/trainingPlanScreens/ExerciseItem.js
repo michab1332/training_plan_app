@@ -11,11 +11,12 @@ const ExerciseItem = ({ exerciseName, numberOfSeries }) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 80,
+        height: 70,
         width: 250,
         backgroundColor: '#FFFBFC',
-        borderRadius: 10,
+        borderRadius: 50,
         justifyContent: 'space-evenly',
+        alignItems: 'center',
         padding: 10,
         margin: 10
     },
@@ -24,7 +25,8 @@ const styles = StyleSheet.create({
         fontWeight: '700'
     },
     series: {
-        color: '#072AC8'
+        color: '#072AC8',
+        fontWeight: '700'
     }
 })
 
