@@ -5,25 +5,80 @@ import { AppContext } from '../../context/AppContext';
 
 import Button from '../../components/Button';
 
-const TrainingScreen = ({ route }) => {
+const TrainingScreen = ({ navigation, route }) => {
     const { trainingId, day } = route.params
-    const { trainingPlansTab } = useContext(AppContext)
+    const { trainingPlansTab, exercisesTab, handleSetExercisesTab } = useContext(AppContext)
     const [numberOfRepetitions, setNumberOfRepetitions] = useState()
     const [countSerie, setCountSerie] = useState(0)
     const [countRepetition, setCountRepetition] = useState(0)
+    const [numberOfRepetitionsTab, setNumberOfRepetitionsTab] = useState([])
 
     const trainingPlan = trainingPlansTab.filter(item => item.id === trainingId)[0]
-    console.log(trainingPlan)
-
+    //console.log(trainingPlan.exercises[countSerie].repetitionsInSerie.length)
     useLayoutEffect(() => {
-        if (countRepetition >= trainingPlan.exercises[countSerie].repetitionsInSerie.length) {
+        if (countRepetition > trainingPlan.exercises[countSerie].repetitionsInSerie.length) {
             setCountSerie(prevState => prevState + 1)
             setCountRepetition(0)
         }
+        if (isTabEnd()) {
+            setNumberOfRepetitionsTab(prevState => [...prevState, numberOfRepetitions])
+        }
+        setNumberOfRepetitionsTab(prevState => [...prevState, numberOfRepetitions])
+        console.log("powtorzenia" + numberOfRepetitionsTab)
+        console.log("numer serii" + countSerie)
     }, [countRepetition])
 
+    useLayoutEffect(() => {
+        setNumberOfRepetitionsTab([])
+    }, [countSerie])
+
+    const fixData = (number) => {
+        return String(number).length === 1 ? `0${number}` : number
+    }
+
+    const getCurrentDate = () => {
+        const date = new Date().getDate()
+        const month = new Date().getMonth() + 1
+        const year = new Date().getFullYear()
+        return `${fixData(date)}-${fixData(month)}-${year}`
+    }
+
+    const isTabEnd = () => {
+        return countSerie + 1 === trainingPlan.exercises.length && countRepetition + 1 === trainingPlan.exercises[countSerie].repetitionsInSerie.length
+    }
+
     const handleNext = () => {
-        setCountRepetition(prevState => prevState + 1)
+        if (numberOfRepetitions != undefined) {
+            if (countRepetition === trainingPlan.exercises[countSerie].repetitionsInSerie.length) {
+                console.log("1.")
+                handleSetExercisesTab({
+                    id: exercisesTab.length + 1,
+                    exerciseName: trainingPlan.exercises[countSerie].exerciseName,
+                    exerciseRepetitions: numberOfRepetitionsTab,
+                    date: getCurrentDate()
+                })
+            }
+            if (isTabEnd()) {
+                setCountRepetition(prevState => prevState)
+            } else {
+                setCountRepetition(prevState => prevState + 1)
+                console.log('log2')
+            }
+            console.log('----------')
+        }
+    }
+
+    const handleExit = () => {
+        if (numberOfRepetitions != undefined) {
+            handleSetExercisesTab({
+                id: exercisesTab.length + 1,
+                exerciseName: trainingPlan.exercises[countSerie].exerciseName,
+                exerciseRepetitions: numberOfRepetitionsTab,
+                date: getCurrentDate()
+            })
+            setCountRepetition(0)
+            navigation.goBack()
+        }
     }
 
     return (
@@ -31,6 +86,7 @@ const TrainingScreen = ({ route }) => {
             <View style={styles.top}>
                 <View style={[styles.topTitle, styles.shadow]}>
                     <Text style={styles.topText}>{day}</Text>
+                    {console.log(exercisesTab)}
                 </View>
                 <View style={[styles.topTitle, styles.shadow]}>
                     <Text style={styles.topText}>{trainingPlan.trainingName}</Text>
@@ -38,10 +94,10 @@ const TrainingScreen = ({ route }) => {
             </View>
             <View style={styles.main}>
                 <Text style={styles.mainTitleText}>{trainingPlan.exercises[countSerie].exerciseName}</Text>
-                <Text style={styles.mainNumberOfSerie}>{countRepetition + 1}</Text>
+                <Text style={styles.mainNumberOfSerie}>{countRepetition === trainingPlan.exercises[countSerie].repetitionsInSerie.length ? countRepetition : countRepetition + 1}</Text>
                 <TextInput placeholder='Number of repetitions' keyboardType='numeric' style={styles.input} value={numberOfRepetitions} onChangeText={setNumberOfRepetitions} />
             </View>
-            <Button onPress={handleNext} text="next" marginBottom={20} />
+            {isTabEnd() ? <Button onPress={handleExit} text="Finish training" marginBottom={20} /> : <Button onPress={handleNext} text="Next" marginBottom={20} />}
         </View>
     )
 }
@@ -113,3 +169,11 @@ const styles = StyleSheet.create({
 })
 
 export default TrainingScreen;
+
+//coutSerie is changing when i clicking nextbuttton that is the my problem
+// handleSetExercisesTab({
+//     id: exercisesTab.length + 1,
+//     exerciseName: trainingPlan.exercises[countSerie].exerciseName,
+//     exerciseRepetitions: numberOfRepetitionsTab,
+//     date: getCurrentDate()
+// })

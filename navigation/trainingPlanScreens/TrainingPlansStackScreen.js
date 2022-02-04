@@ -11,7 +11,7 @@ const TrainingPlansStackScreen = ({ navigation }) => {
         navigation.setOptions({
             headerStyle: {
                 backgroundColor: "#072AC8",
-                height: 35
+                height: 40
             },
             headerTintColor: '#fff',
             headerTitleAlign: 'center'

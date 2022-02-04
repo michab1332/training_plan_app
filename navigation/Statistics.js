@@ -1,22 +1,42 @@
-import { useLayoutEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { useLayoutEffect, useContext, useState } from "react";
+import { View, StyleSheet, FlatList, Modal } from "react-native";
+
+import ListItem from "../components/ListItem";
+
+import { AppContext } from "../context/AppContext";
 
 const Statistics = ({ navigation }) => {
+    const { exercisesTab } = useContext(AppContext)
+    const [exercisesTabAfter, setExercisesTabAfter] = useState([])
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerStyle: {
                 backgroundColor: "#072AC8",
-                height: 35
+                height: 40
             },
             headerTintColor: '#fff',
             headerTitleAlign: 'center'
         })
     }, [])
 
+    const handleSetExercisesTabAfter = (tab) => {
+        setExercisesTabAfter(tab)
+        console.log(exercisesTabAfter)
+    }
+
+    const item = ({ item }) => {
+        return <ListItem trainingName={item.exerciseName} trainingText={item.date} onPress={() => handleSetExercisesTabAfter(item.exerciseRepetitions)} buttonText="Statistics" />
+    }
+
     return (
         <View style={styles.containerBackground}>
             <View style={styles.container}>
-                <Text>Plan trenignowy</Text>
+                <FlatList
+                    data={exercisesTab}
+                    keyExtractor={item => item.id}
+                    renderItem={item}
+                />
             </View>
         </View>
     )

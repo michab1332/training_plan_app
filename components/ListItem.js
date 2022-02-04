@@ -48,13 +48,14 @@ const styles = StyleSheet.create({
     },
     name: {
         color: "#fff",
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        fontSize: 16
 
     },
     time: {
         color: '#fff',
-        fontWeight: 'bold'
-
+        fontWeight: 'bold',
+        fontSize: 16
     },
     bottom: {
         flex: 1,

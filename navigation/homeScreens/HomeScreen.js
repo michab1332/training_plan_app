@@ -1,4 +1,4 @@
-import { useLayoutEffect, useContext } from "react";
+import { useContext } from "react";
 import { Text, View, StyleSheet, FlatList } from "react-native";
 
 import { AppContext } from "../../context/AppContext";
@@ -8,17 +8,6 @@ import Button from "../../components/Button";
 
 const HomeScreen = ({ navigation }) => {
     const { trainingDayTab, trainingPlansTab } = useContext(AppContext);
-
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerStyle: {
-                backgroundColor: "#072AC8",
-                height: 50
-            },
-            headerTintColor: '#fff',
-            headerTitleAlign: 'center'
-        })
-    }, [])
 
     const handleStartTraining = (trainingId, day) => {
         navigation.navigate('Training', { trainingId, day })

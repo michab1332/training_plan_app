@@ -7,7 +7,6 @@ const InputSelect = ({ data, text, handleSelectItem }) => {
     const item = ({ item, index }) => {
         return (
             <Text onPress={() => {
-                console.log(item.name || item.trainingName)
                 setSelectedItem(index)
                 if (item.name) {
                     handleSelectItem(item.name)
