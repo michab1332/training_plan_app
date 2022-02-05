@@ -24,8 +24,6 @@ const TrainingScreen = ({ navigation, route }) => {
             setNumberOfRepetitionsTab(prevState => [...prevState, numberOfRepetitions])
         }
         setNumberOfRepetitionsTab(prevState => [...prevState, numberOfRepetitions])
-        console.log("powtorzenia" + numberOfRepetitionsTab)
-        console.log("numer serii" + countSerie)
     }, [countRepetition])
 
     useLayoutEffect(() => {
@@ -50,7 +48,6 @@ const TrainingScreen = ({ navigation, route }) => {
     const handleNext = () => {
         if (numberOfRepetitions != undefined) {
             if (countRepetition === trainingPlan.exercises[countSerie].repetitionsInSerie.length) {
-                console.log("1.")
                 handleSetExercisesTab({
                     id: exercisesTab.length + 1,
                     exerciseName: trainingPlan.exercises[countSerie].exerciseName,
@@ -62,9 +59,7 @@ const TrainingScreen = ({ navigation, route }) => {
                 setCountRepetition(prevState => prevState)
             } else {
                 setCountRepetition(prevState => prevState + 1)
-                console.log('log2')
             }
-            console.log('----------')
         }
     }
 
